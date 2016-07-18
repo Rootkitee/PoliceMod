@@ -684,7 +684,7 @@ void CGameContext::OnMessage(int MsgID, CUnpacker *pUnpacker, int ClientID)
 					if (m_apPlayers[ClientID]->m_WorldTeam != 2)
 					{
 						SendChatTarget(ClientID, "You are now a Terrorist.");
-						m_apPlayers[ClientID]->m_WorldTeam = 2; // Team Police
+						m_apPlayers[ClientID]->m_WorldTeam = 2; // Team Terrorist
 					}
 					else
 					{
