@@ -54,3 +54,8 @@ PoliceMod.vcxproj
 PoliceMod.VC.opendb
 build_debug.bat
 *.bat
+*.suo
+PopoMod.sln
+*.opendb
+PopoMod.vcxproj.filters
+*.vcxproj
