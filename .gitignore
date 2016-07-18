@@ -51,3 +51,6 @@ Release/PoliceMod.log
 PoliceMod.sln
 PoliceMod.vcxproj
 *.user
+PoliceMod.VC.opendb
+build_debug.bat
+*.bat
