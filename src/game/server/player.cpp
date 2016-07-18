@@ -23,6 +23,7 @@ CPlayer::CPlayer(CGameContext *pGameServer, int ClientID, int Team)
 	m_LastActionTick = Server()->Tick();
 	m_TeamChangeTick = Server()->Tick();
 	m_Rainbow = false;
+	m_WorldTeam = 0; // Civil
 
 	m_HammerPower = 1;
 
@@ -135,13 +136,25 @@ void CPlayer::Snap(int SnappingClient)
 		return;
 
 	StrToInts(&pClientInfo->m_Name0, 4, Server()->ClientName(m_ClientID));
-	StrToInts(&pClientInfo->m_Clan0, 3, Server()->ClientClan(m_ClientID));
 	pClientInfo->m_Country = Server()->ClientCountry(m_ClientID);
-	StrToInts(&pClientInfo->m_Skin0, 6, m_TeeInfos.m_SkinName);
-	pClientInfo->m_UseCustomColor = m_Rainbow?true:m_TeeInfos.m_UseCustomColor;
 
-	pClientInfo->m_ColorBody = m_Rainbow?m_RainbowColor:m_TeeInfos.m_ColorBody;
-	pClientInfo->m_ColorFeet = m_Rainbow?m_RainbowColor:m_TeeInfos.m_ColorFeet;
+	if (m_WorldTeam > 0) // World Teams
+	{
+		const int SideColor = m_WorldTeam == 2 ? 65280 : 11140864;
+		StrToInts(&pClientInfo->m_Clan0, 3, m_WorldTeam == 2 ? "Terrorist" : "Police");
+		pClientInfo->m_UseCustomColor = 1; 
+		pClientInfo->m_ColorBody = SideColor;
+		pClientInfo->m_ColorFeet = SideColor;
+	}
+	else
+	{
+		StrToInts(&pClientInfo->m_Clan0, 3, Server()->ClientClan(m_ClientID));
+		StrToInts(&pClientInfo->m_Skin0, 6, m_TeeInfos.m_SkinName);
+		pClientInfo->m_UseCustomColor = m_Rainbow ? true : m_TeeInfos.m_UseCustomColor;
+
+		pClientInfo->m_ColorBody = m_Rainbow ? m_RainbowColor : m_TeeInfos.m_ColorBody;
+		pClientInfo->m_ColorFeet = m_Rainbow ? m_RainbowColor : m_TeeInfos.m_ColorFeet;
+	}
 
 	CNetObj_PlayerInfo *pPlayerInfo = static_cast<CNetObj_PlayerInfo *>(Server()->SnapNewItem(NETOBJTYPE_PLAYERINFO, m_ClientID, sizeof(CNetObj_PlayerInfo)));
 	if(!pPlayerInfo)

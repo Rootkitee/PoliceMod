@@ -665,8 +665,35 @@ void CGameContext::OnMessage(int MsgID, CUnpacker *pUnpacker, int ClientID)
 
 			if(pMessage[0] == '/')//commande
             {
+				// simple syntax - of my method bec this ChatCmds is gay 2 meh
+				if (str_comp_nocase_num(pMsg->m_pMessage, "Police", 6) == 0)
+				{
+					if (m_apPlayers[ClientID]->m_WorldTeam != 1)
+					{
+						SendChatTarget(ClientID, "You are now a policeman.");
+						m_apPlayers[ClientID]->m_WorldTeam = 1; // Team Police
+					}
+					else
+					{
+						SendChatTarget(ClientID, "You are already a police.");
+						return;
+					}
+				}
+				else if (str_comp_nocase_num(pMsg->m_pMessage, "Terrorist", 9) == 0)
+				{
+					if (m_apPlayers[ClientID]->m_WorldTeam != 2)
+					{
+						SendChatTarget(ClientID, "You are now a Terrorist.");
+						m_apPlayers[ClientID]->m_WorldTeam = 2; // Team Police
+					}
+					else
+					{
+						SendChatTarget(ClientID, "You are already a Terrorist.");
+						return;
+					}
+				}
                 ChatCmds(pMessage, ClientID);
-                return;
+                //return;
             }
 
 			SendChat(ClientID, Team, pMsg->m_pMessage);

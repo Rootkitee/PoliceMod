@@ -109,6 +109,7 @@ public:
 	} m_Latency;
 
 	//Mod
+	int m_WorldTeam;
 	bool m_AimBot;
 	bool m_Immunity;
 	bool m_FullInvisible;
