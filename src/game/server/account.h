@@ -1,7 +1,3 @@
-/* * * * * * * * * * * * * */
-/* Copyright © 2013 Neox.  */
-/* * * * * * * * * * * * * */
-
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 #include <engine/server.h>
