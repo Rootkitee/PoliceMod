@@ -1,6 +1,3 @@
-/* * * * * * * * * * * * * */
-/* Copyright © 2013 Neox.  */
-/* * * * * * * * * * * * * */
 #define _HAS_EXCEPTIONS 0
 #include <string.h>
 #include <fstream>
